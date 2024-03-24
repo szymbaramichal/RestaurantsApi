@@ -1,3 +1,12 @@
 .vs
-/bin
-/obj
+Restaurants.API/obj/*
+Restaurants.API/bin/*
+
+Restaurants.Application/obj
+Restaurants.Application/bin
+
+Restaurants.Domain/obj
+Restaurants.Domain/bin
+
+Restaurants.Infrastracture/obj
+Restaurants.Infrastracture/bin
