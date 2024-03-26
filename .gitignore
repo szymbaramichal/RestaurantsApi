@@ -1,6 +1,6 @@
 .vs
-Restaurants.API/obj/*
-Restaurants.API/bin/*
+Restaurants.API/obj
+Restaurants.API/bin
 
 Restaurants.Application/obj
 Restaurants.Application/bin
