@@ -1,5 +1,6 @@
 using Restaurants.API.Middlewares;
 using Restaurants.Application.Extensions;
+using Restaurants.Domain.Entities;
 using Restaurants.Infrastracture.Extensions;
 using Restaurants.Infrastracture.Seeders;
 using Serilog;
@@ -7,8 +8,6 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
 builder.Services.AddControllers();
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -18,11 +17,11 @@ builder.Services.AddSwaggerGen(opt => {
 
 });
 
+var app = builder.Build();
+
 builder.Host.UseSerilog((context, config) => {
     config.ReadFrom.Configuration(context.Configuration);
 });
-
-var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantSeeder>();
@@ -40,6 +39,8 @@ if(app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<User>();
 
 app.UseAuthorization();
 

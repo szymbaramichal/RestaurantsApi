@@ -4,7 +4,7 @@ using Restaurants.Infrastracture.Persistance;
 
 namespace Restaurants.Infrastracture.Repositories;
 
-public class DishRepository(DataContext dbContext) : IDishRepository
+internal class DishRepository(DataContext dbContext) : IDishRepository
 {
     public async Task<int> Create(Dish dish)
     {
