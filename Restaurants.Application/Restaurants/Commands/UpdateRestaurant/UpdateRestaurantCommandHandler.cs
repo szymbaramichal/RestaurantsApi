@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Restaurants.Domain.Exceptions;
 using Restaurants.Domain.Repositories;
 
 namespace Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
@@ -9,14 +10,14 @@ public class UpdateRestaurantCommandHandler(IRestaurantRepository restaurantRepo
 {
     public async Task<bool> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
     {
-        var restaurantEntity = await restaurantRepository.GetById(request.Id);
+        var restaurant = await restaurantRepository.GetById(request.Id);
 
-        if(restaurantEntity is null)
-            return false;
+        if(restaurant is null)
+            throw new NotFoundException(nameof(restaurant), request.Id.ToString());
 
-        mapper.Map(request, restaurantEntity);
+        mapper.Map(request, restaurant);
 
-        await restaurantRepository.Update(restaurantEntity);
+        await restaurantRepository.Update(restaurant);
 
         return true;
     }

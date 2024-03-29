@@ -30,9 +30,6 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 		var restaurant = await mediator.Send(new GetRestaurantByIdQuery() {
 			Id = id
 		});
-	
-		if (restaurant is null)
-			return NotFound();
 
 		return Ok(restaurant);
 	}
@@ -59,11 +56,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 	{
 		updateRestaurantCommand.Id = id;
 		var isUpdated = await mediator.Send(updateRestaurantCommand);
-
-		if(isUpdated)
-			return NoContent();
-		else
-			return NotFound();
+		
+		return Ok();
 	}
 
 	[HttpPost]
