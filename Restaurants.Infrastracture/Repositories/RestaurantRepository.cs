@@ -32,7 +32,9 @@ internal class RestaurantRepository(DataContext dbContext) : IRestaurantReposito
 
     public async Task<Restaurant?> GetById(int id)
     {
-        return await dbContext.Restaurants.FindAsync(id);
+        return await dbContext.Restaurants
+        .Include(r => r.Dishes)
+        .FirstOrDefaultAsync(r => r.Id == id);
     }
 
     public async Task<bool> Update(Restaurant restaurant)

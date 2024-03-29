@@ -13,4 +13,10 @@ public class DishRepository(DataContext dbContext) : IDishRepository
 
         return dish.Id;
     }
+
+    public async Task Delete(Dish dish)
+    {
+        dbContext.Remove(dish);
+        await dbContext.SaveChangesAsync();
+    }
 }
