@@ -10,3 +10,5 @@ Restaurants.Domain/bin
 
 Restaurants.Infrastracture/obj
 Restaurants.Infrastracture/bin
+
+*.log
