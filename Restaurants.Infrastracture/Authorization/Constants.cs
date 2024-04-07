@@ -3,6 +3,7 @@ namespace Restaurants.Infrastracture.Authorization;
 public static class PolicyNames
 {
     public const string HasNationality = "HasNationality";
+    public const string Is20YearsOld = "Is20YearsOld";
 }
 
 public static class AppClaimTypes 
