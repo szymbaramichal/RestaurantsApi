@@ -1,14 +1,25 @@
 using MediatR;
+using Restaurants.Domain.Entities;
+using Restaurants.Domain.Exceptions;
+using Restaurants.Domain.Interfaces;
 using Restaurants.Domain.Repositories;
+using Restaurants.Domain.Constants;
 
 namespace Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 
-public class DeleteRestaurantCommandHandler(IRestaurantRepository restaurantRepository) : IRequestHandler<DeleteRestaurantCommand, bool>
+public class DeleteRestaurantCommandHandler(IRestaurantRepository restaurantRepository,
+    IRestaurantAuthorizationService authorizationService) : IRequestHandler<DeleteRestaurantCommand, bool>
 {
     public async Task<bool> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
     {
-        var isDeleted = await restaurantRepository.Delete(request.Id);
+        var restaurant = await restaurantRepository.GetById(request.Id) 
+            ?? throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
+        
+        if(!authorizationService.Authorize(restaurant, ResourceOperation.Delete))
+            throw new ForbidException(); 
 
-        return isDeleted;
+        await restaurantRepository.Delete(restaurant);
+
+        return true;
     }
 }

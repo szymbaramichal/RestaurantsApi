@@ -7,7 +7,7 @@ public class MinimumAgeRequirementHandler(IUserContext userContext) : Authorizat
 {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumAgeRequirement requirement)
     {
-        var user = userContext.GetCurrentUser();
+        var user = userContext.GetCurrentUser()!;
 
         if(user.DateOfBirth is null)
         {

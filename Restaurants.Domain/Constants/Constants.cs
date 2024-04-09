@@ -1,4 +1,4 @@
-namespace Restaurants.Infrastracture.Authorization;
+namespace Restaurants.Domain.Constants;
 
 public static class PolicyNames
 {

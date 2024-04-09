@@ -3,13 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.Domain.Constants;
 using Restaurants.Domain.Entities;
+using Restaurants.Domain.Interfaces;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastracture.Authorization;
 using Restaurants.Infrastracture.Authorization.Requirements;
 using Restaurants.Infrastracture.Persistance;
 using Restaurants.Infrastracture.Repositories;
 using Restaurants.Infrastracture.Seeders;
+using Restaurants.Infrastracture.Service;
 
 namespace Restaurants.Infrastracture.Extensions;
 
@@ -29,6 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDishRepository, DishRepository>();
 
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+        services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
 
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim("Nationality"))
