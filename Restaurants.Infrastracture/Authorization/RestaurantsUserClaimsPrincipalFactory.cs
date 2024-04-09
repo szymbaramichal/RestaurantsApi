@@ -6,15 +6,11 @@ using Restaurants.Domain.Entities;
 
 namespace Restaurants.Infrastracture.Authorization
 {
-    public class RestaurantsUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, IdentityRole>
-    {
-        public RestaurantsUserClaimsPrincipalFactory(UserManager<User> userManager, 
+    public class RestaurantsUserClaimsPrincipalFactory(UserManager<User> userManager, 
         RoleManager<IdentityRole> roleManager, 
         IOptions<IdentityOptions> options) 
-        : base(userManager, roleManager, options)
-        {
-        }
-
+            : UserClaimsPrincipalFactory<User, IdentityRole>(userManager, roleManager, options)
+    {
         public override async Task<ClaimsPrincipal> CreateAsync(User user)
         {
             var id = await GenerateClaimsAsync(user);

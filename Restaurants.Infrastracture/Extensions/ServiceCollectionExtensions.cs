@@ -32,11 +32,14 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDishRepository, DishRepository>();
 
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+        services.AddScoped<IAuthorizationHandler, MinimumRestaurantsAmountRequirementHandler>();
+        
         services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
 
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim("Nationality"))
-            .AddPolicy(PolicyNames.Is20YearsOld, builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+            .AddPolicy(PolicyNames.Is20YearsOld, builder => builder.AddRequirements(new MinimumAgeRequirement(age: 20)))
+            .AddPolicy(PolicyNames.HasManyRestaurants, builder => builder.AddRequirements(new MinimumRestaurantsAmountRequirement(minimumRestaurantsCreated: 2)));
     }
 
 }
