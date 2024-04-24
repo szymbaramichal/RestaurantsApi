@@ -1,3 +1,4 @@
+using AutoMapper;
 using Restaurants.API.Extensions;
 using Restaurants.API.Middlewares;
 using Restaurants.Application.Extensions;
@@ -16,6 +17,10 @@ builder.Services.AddApplication();
 var app = builder.Build();
 
 var scope = app.Services.CreateScope();
+
+var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
 var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantSeeder>();
 await seeder.Seed();
 

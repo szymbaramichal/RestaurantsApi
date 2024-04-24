@@ -5,6 +5,9 @@ Restaurants.API/bin
 Restaurants.Application/obj
 Restaurants.Application/bin
 
+Restaurants.Application.Tests/obj
+Restaurants.Application.Tests/bin
+
 Restaurants.Domain/obj
 Restaurants.Domain/bin
 
